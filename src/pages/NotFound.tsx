@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 const NotFound = () => {
   return (
     <div>
@@ -8,4 +6,4 @@ const NotFound = () => {
   );
 };
 
-export default memo(NotFound);
+export default NotFound;

@@ -1,14 +1,19 @@
 import { Route, Routes } from 'react-router-dom';
 import { PATH } from '../components';
 import { Login, Register } from '../pages';
-import NOtFound from '../pages/NotFound';
+import NotFound from '../pages/NotFound';
 
 const AuthRoute = () => {
+  const authList = [
+    { id: 1, path: PATH.home, element: <Login /> },
+    { id: 2, path: PATH.register, element: <Register /> },
+    { id: 3, path: PATH.notFound, element: <NotFound /> },
+  ];
   return (
     <Routes>
-      <Route path={PATH.home} element={<Login />} />
-      <Route path={PATH.register} element={<Register />} />
-      <Route path={PATH.notFound} element={<NOtFound />} />
+      {authList.map((item) => (
+        <Route key={item.id} path={item.path} element={item.element} />
+      ))}
     </Routes>
   );
 };

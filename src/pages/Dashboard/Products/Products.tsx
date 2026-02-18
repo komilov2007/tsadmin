@@ -1,8 +1,4 @@
 import { useEffect, useState } from 'react';
-
-import { useNavigate } from 'react-router-dom';
-import type { CategoryType, ProductsType } from '../../@types';
-import { debounce, instance } from '../../hooks';
 import {
   Button,
   FilterNotFound,
@@ -11,18 +7,19 @@ import {
   PATH,
   ProductCard,
   Select,
-} from '../../components';
+} from '../../../components';
+import type { CategoryType, ProductsType } from '../../../@types';
+import { debounce, instance } from '../../../hooks';
+import { useNavigate } from 'react-router-dom';
 
 const Products = () => {
   const navigate = useNavigate();
   const [categoryList, setCategoryList] = useState<CategoryType[]>([]);
   const [products, setProducts] = useState<ProductsType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
-  // Filter
   const [searchValue, setSearchValue] = useState<string>('');
   const title = debounce(searchValue, 800);
-  const [categoryId, setCategoryId] = useState<number | string>('');
+  const [categoryId, setCategoryId] = useState<string>('');
 
   useEffect(() => {
     instance.get('/categories').then((res) => setCategoryList(res.data));
@@ -40,6 +37,7 @@ const Products = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-7.5">
           <Input
+            value={searchValue}
             setLoading={setLoading}
             setValue={setSearchValue}
             extraClass="!bg-slate-200 !py-3.5 !text-black !w-[300px]"
@@ -47,7 +45,9 @@ const Products = () => {
             placeholder="Qidirish"
             type="text"
           />
+
           <Select
+            value={categoryId}
             setLoading={setLoading}
             setValue={setCategoryId}
             list={categoryList}

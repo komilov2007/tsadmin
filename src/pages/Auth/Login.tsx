@@ -1,62 +1,69 @@
-import { useContext, type SubmitEvent } from 'react';
-import { AuthFormItem, AuthPage, Button } from '../../components';
-import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
-import { Context } from '../../context/Conttext';
+import { useContext, useState, type SubmitEvent } from 'react';
+import {
+  AuthFormItem,
+  Button,
+  ChangeAuthPage,
+  SiteLogo,
+} from '../../components';
+import { Toaster } from 'react-hot-toast';
+import { Context } from '../../context/Context';
+import { LoadingWhite } from '../../assets/images';
+import { LoginFn } from '../../services';
 
 const Login = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const { setToken } = useContext(Context);
-  function handleLoginSubmit(evt: SubmitEvent<HTMLFormElement>) {
-    evt.preventDefault();
-    const data = {
-      email: evt.target.email.value,
-      password: evt.target.password.value,
-    };
-    axios
-      .post('https://api.escuelajs.co/api/v1/auth/login', data)
-      .then((res) => {
-        toast.success('okey jiagr');
-        setTimeout(() => {
-          setToken(res.data.success_token);
-        }, 1500);
 
-        console.log(res.data);
-      })
-      .catch(() => toast.error('Xatolik bor jigar'));
-  }
-
+  const handleLoginSubmit = (evt: SubmitEvent<HTMLFormElement>) =>
+    LoginFn(setLoading, evt, setToken);
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+    <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-indigo-950 text-slate-100">
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="w-[380px] bg-gray-800 rounded-2xl p-8 shadow-2xl">
-        <h1 className="text-3xl font-bold text-white text-center mb-2">
-          Welcome back
-        </h1>
-        <form
-          onSubmit={handleLoginSubmit}
-          autoComplete="off"
-          className="space-y-5"
-        >
-          <AuthFormItem
-            label="Email"
-            name="email"
-            placeholder="example@gmail.com"
-            text="text"
-            type="email"
-          />
-          <AuthFormItem
-            label="Password"
-            name="password"
-            placeholder="********"
-            text="password"
-            type="password"
-          />
-          <Button extraClass="!mt-3" type="submit">
-            Sign in
-          </Button>
-        </form>
-        <div className="flex ml-33 mt-2">
-          <AuthPage title="Hisobingiz yoqmi" />
+      <div className="mx-auto flex min-h-screen max-w-6xl items-center justify-center px-4">
+        <div className="w-full max-w-md">
+          {/* Header */}
+          <div className="mb-6 text-center">
+            <SiteLogo />
+            <h1 className="text-2xl font-semibold tracking-tight">
+              Xush kelibsiz
+            </h1>
+          </div>
+          {/* Card */}
+          <div className="rounded-3xl bg-white/5 p-6 shadow-2xl shadow-black/40 ring-1 ring-white/10 backdrop-blur">
+            <form onSubmit={handleLoginSubmit} autoComplete="off">
+              <AuthFormItem
+                label="Email"
+                name="email"
+                placeholder="example@gmail.com"
+                type="email"
+              />
+              <AuthFormItem
+                labelClass="!mt-4"
+                label="Password"
+                name="password"
+                placeholder="********"
+                type="password"
+              />
+              <Button
+                extraClass="!h-[44px] !mt-3 !flex !items-center !justify-center"
+                type="submit"
+              >
+                {loading ? (
+                  <img
+                    className="scale-[1.2]"
+                    src={LoadingWhite}
+                    alt="Loading"
+                    width={30}
+                    height={30}
+                  />
+                ) : (
+                  'Kirish'
+                )}
+              </Button>
+            </form>
+          </div>
+          {/* Footer */}
+          <ChangeAuthPage title="Hisobinggiz yo'qmi?" />
         </div>
       </div>
     </div>

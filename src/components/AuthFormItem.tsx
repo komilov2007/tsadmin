@@ -1,45 +1,30 @@
 import type { FC } from 'react';
 
-interface AuthFormType {
+interface AuthFormItemType {
   label: string;
-  text: 'text' | 'password' | 'email';
-  name: string;
+  type: 'text' | 'password' | 'email';
   placeholder: string;
-  type: string;
+  name: string;
   extraClass?: string;
+  labelClass?: string;
 }
-const AuthFormItem: FC<AuthFormType> = ({
+
+const AuthFormItem: FC<AuthFormItemType> = ({
   label,
   type,
-  name,
   placeholder,
+  name,
   extraClass,
+  labelClass,
 }) => {
   return (
-    <label className="block text-sm text-gray-300">
-      <span className="mb-1.5 block font-medium tracking-wide text-gray-400">
-        {label}
-      </span>
-
+    <label className={`${labelClass} mb-1.5 block text-sm text-slate-200`}>
+      <span className="inline-block mb-1.5">{label}</span>
       <input
         name={name}
         type={type}
         placeholder={placeholder}
-        className={`
-      ${extraClass ?? ''}
-      w-full px-4 py-3 rounded-xl
-      bg-gray-800/80
-      border border-gray-700
-      text-white placeholder-gray-500
-      outline-none
-      transition-all duration-200
-      
-      focus:border-green-500
-      focus:ring-2 focus:ring-green-500/40
-      focus:bg-gray-800
-      
-      hover:border-gray-500
-    `}
+        className={`${extraClass} w-full rounded-2xl bg-slate-950/40 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 ring-1 ring-white/10 outline-none transition focus:ring-2 focus:ring-indigo-400/60`}
       />
     </label>
   );

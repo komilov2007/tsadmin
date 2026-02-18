@@ -1,11 +1,10 @@
 import { useContext } from 'react';
-import { Context } from './context/Conttext';
-import Dashboard from './routes/Dashboard';
-import AuthRoute from './routes/AuthRoute';
+import { Context } from './context/Context';
+import { AuthRoute, DashboardRoute } from './routes';
 
 const App = () => {
   const { token } = useContext(Context);
-  return token ? <Dashboard /> : <AuthRoute />;
+  return token ? <DashboardRoute /> : <AuthRoute />;
 };
 
 export default App;

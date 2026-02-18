@@ -1,1 +1,13 @@
 @import 'tailwindcss';
+
+body {
+  overflow: hidden;
+}
+
+.active {
+  background-color: #eef2ff;
+  color: #432cd8;
+}
+.active > span {
+  background-color: #432cd8;
+}
