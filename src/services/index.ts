@@ -52,30 +52,30 @@ export const RegisterFn = (
     .catch(() => toast.error('Xatolik bor!'))
     .finally(() => setLoading(false));
 };
-export const CrudFn = (
-  URL: string,
+
+export const CrudFn = async (
+  url: string,
   data: any,
-  navigate: NavigateFunction,
-  setLoading: Dispatch<SetStateAction<boolean>>,
-  id: string | undefined
+  navigate: any,
+  setLoading: (e: boolean) => void,
+  id?: string
 ) => {
-  if (id) {
-    instance
-      .put(`${URL}/${id} , data`)
-      .then(() => {
-        toast.success("Muvaffaqiyatli o'zgartirildi");
-        setTimeout(() => navigate(-1), 1000);
-      })
-      .catch(() => toast.error('Xatolik bor!'))
-      .finally(() => setLoading(false));
-  } else {
-    instance
-      .post(URL, data)
-      .then(() => {
-        toast.success("Muvaffaqiyatli qo'shildi");
-        setTimeout(() => navigate(-1), 1000);
-      })
-      .catch(() => toast.error('Xatolik bor!'))
-      .finally(() => setLoading(false));
+  try {
+    if (id) {
+      // UPDATE
+      await instance.put(`${url}/${id}`, data);
+      toast.success('Updated successfully');
+    } else {
+      // CREATE
+      await instance.post(url, data);
+      toast.success('Created successfully');
+    }
+
+    navigate(-1);
+  } catch (error: any) {
+    console.log(error.response?.data);
+    toast.error('Xatolik bor');
+  } finally {
+    setLoading(false);
   }
 };

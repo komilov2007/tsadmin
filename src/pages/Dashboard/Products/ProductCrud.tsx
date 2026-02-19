@@ -4,10 +4,13 @@ import { LoadingWhite } from '../../../assets/images';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CrudFn } from '../../../services';
 import { instance } from '../../../hooks';
+
 const ProductCreate = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState<boolean>(false);
+  const [categories, setCategories] = useState<any[]>([]);
 
   const [title, setTitle] = useState<string>('');
   const [price, setPrice] = useState<string>('');
@@ -15,24 +18,43 @@ const ProductCreate = () => {
   const [categoryId, setCategoryId] = useState<string>('');
   const [images, setImages] = useState<string>('');
 
+  // 🔥 SUBMIT
   function handleSubmit(evt: SubmitEvent<HTMLFormElement>) {
-    setLoading(true);
     evt.preventDefault();
+    setLoading(true);
 
-    const data = { title, price, description, categoryId, images: [images] };
+    const data = {
+      title,
+      price: Number(price),
+      description,
+      categoryId: Number(categoryId),
+      images: [images],
+    };
+
     CrudFn('/products', data, navigate, setLoading, id);
   }
 
+  // 🔥 CATEGORY LOAD
   useEffect(() => {
-    if (id)
+    instance
+      .get('/categories')
+      .then((res) => setCategories(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  // 🔥 EDIT MODE
+  useEffect(() => {
+    if (id) {
       instance.get(`/products/${id}`).then((res) => {
         setTitle(res.data.title);
-        setPrice(res.data.price);
+        setPrice(String(res.data.price));
         setCategoryId(String(res.data.category.id));
         setDescription(res.data.description);
         setImages(res.data.images[0]);
       });
+    }
   }, [id]);
+
   return (
     <div className="min-h-screen bg-slate-900 text-white p-6">
       <form onSubmit={handleSubmit} autoComplete="off">
@@ -40,24 +62,21 @@ const ProductCreate = () => {
           <h1 className="text-xl font-semibold">
             {id ? "O'zgartirish" : 'Yangi Mahsulot'}
           </h1>
+
           <Button
             extraClass="w-25 flex items-center justify-center h-[44px]"
             type="submit"
           >
             {loading ? (
-              <img
-                className="scale-[1.2]"
-                src={LoadingWhite}
-                alt="Loading"
-                width={30}
-                height={30}
-              />
+              <img src={LoadingWhite} alt="loading" width={28} />
             ) : (
               'Saqlash'
             )}
           </Button>
         </div>
-        <div className="bg-white/5 w-150 mx-auto p-6 rounded-2xl ring-1 ring-white/10 flex flex-col gap-5">
+
+        <div className="bg-white/5 w-[600px] mx-auto p-6 rounded-2xl ring-1 ring-white/10 flex flex-col gap-5">
+          {/* TITLE */}
           <label className="text-xs text-slate-300">
             Title
             <Input
@@ -69,6 +88,8 @@ const ProductCreate = () => {
               placeholder="New Product"
             />
           </label>
+
+          {/* PRICE + CATEGORY */}
           <div className="grid sm:grid-cols-2 gap-4">
             <label className="text-xs text-slate-300">
               Price
@@ -81,14 +102,19 @@ const ProductCreate = () => {
                 placeholder="Price"
               />
             </label>
+
             <label className="text-xs text-slate-300">
               Category
               <Select
+                list={categories}
+                value={categoryId}
                 setValue={setCategoryId}
-                extraClass="bg-slate-200 p-2.5 text-black"
+                extraClass="bg-slate-200 text-black"
               />
             </label>
           </div>
+
+          {/* DESC */}
           <label className="text-xs text-slate-300">
             Description
             <Input
@@ -100,6 +126,8 @@ const ProductCreate = () => {
               placeholder="A description"
             />
           </label>
+
+          {/* IMAGE */}
           <label className="text-xs text-slate-300">
             Image URL
             <Input
@@ -116,4 +144,5 @@ const ProductCreate = () => {
     </div>
   );
 };
+
 export default ProductCreate;

@@ -3,7 +3,6 @@ import type { CategoryType } from '../@types';
 
 interface SelectType {
   list: Array<CategoryType>;
-
   setValue: Dispatch<SetStateAction<string>>;
   setLoading?: (e: boolean) => void;
   extraClass?: string;
@@ -18,16 +17,19 @@ const Select: FC<SelectType> = ({
   value,
 }) => {
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
-    if (setValue) setValue(e.target.value);
+    setValue(e.target.value);
     if (setLoading) setLoading(true);
   }
+
   return (
     <select
       value={value}
       onChange={handleChange}
-      className={`${extraClass} w-full rounded-2xl bg-slate-950/40 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 ring-1 ring-white/10 outline-none transition focus:ring-2 focus:ring-indigo-400/60`}
+      className={`${extraClass} w-full rounded-2xl bg-slate-950/40 px-4 py-3 text-sm text-slate-100 ring-1 ring-white/10 outline-none`}
     >
-      {list.map((item) => (
+      <option value="">Category tanla</option>
+
+      {list?.map((item) => (
         <option key={item.id} value={item.id}>
           {item.name}
         </option>
