@@ -2,7 +2,6 @@ import type { FC } from 'react';
 import type { ProductsType } from '../@types';
 import { EllipsisVertical, ThumbsUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import PATH from './Path';
 
 const ProductCard: FC<{ item: ProductsType }> = ({ item }) => {
   const navigate = useNavigate();
