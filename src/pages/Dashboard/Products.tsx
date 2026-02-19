@@ -67,7 +67,7 @@ const Products = () => {
       {loading ? (
         <Loading />
       ) : (
-        <ul className="flex justify-between gap-5 flex-wrap mt-5">
+        <ul className="grid grid-cols-4 flex justify-between gap-5  flex-wrap mt-5">
           {products.length ? (
             products.map((item) => <ProductCard key={item.id} item={item} />)
           ) : (

@@ -10,7 +10,7 @@ const ProductCard: FC<{ item: ProductsType }> = ({ item }) => {
   const erroImg =
     'https://cdni.iconscout.com/illustration/premium/thumb/sorry-item-not-found-illustration-svg-download-png-2809510.png';
   return (
-    <div className="w-75 rounded-2xl overflow-hidden bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
+    <div className="w-70 rounded-2xl overflow-hidden bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
       <div className="h-50 relative overflow-hidden">
         <img
           onError={(evt) => ((evt.target as HTMLImageElement).src = erroImg)}

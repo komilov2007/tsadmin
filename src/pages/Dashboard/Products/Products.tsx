@@ -34,7 +34,7 @@ const Products = () => {
 
   return (
     <div className="p-5">
-      <div className="flex items-center justify-between">
+      <div className="grid grid-col-4 flex items-center justify-between">
         <div className="flex items-center gap-7.5">
           <Input
             value={searchValue}
@@ -65,7 +65,7 @@ const Products = () => {
       {loading ? (
         <Loading />
       ) : (
-        <ul className="flex justify-between gap-5 flex-wrap mt-5">
+        <ul className="flex justify-between gap- flex-wrap mt-5">
           {products.length ? (
             products.map((item) => <ProductCard key={item.id} item={item} />)
           ) : (

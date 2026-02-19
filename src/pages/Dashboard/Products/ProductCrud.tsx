@@ -34,7 +34,6 @@ const ProductCreate = () => {
     CrudFn('/products', data, navigate, setLoading, id);
   }
 
-  // 🔥 CATEGORY LOAD
   useEffect(() => {
     instance
       .get('/categories')
@@ -42,7 +41,6 @@ const ProductCreate = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  // 🔥 EDIT MODE
   useEffect(() => {
     if (id) {
       instance.get(`/products/${id}`).then((res) => {
@@ -75,7 +73,7 @@ const ProductCreate = () => {
           </Button>
         </div>
 
-        <div className="bg-white/5 w-[600px] mx-auto p-6 rounded-2xl ring-1 ring-white/10 flex flex-col gap-5">
+        <div className="bg-white/5 w-[100px] mx-auto p-6 rounded-2xl ring-1 ring-white/10 flex flex-col gap-5">
           {/* TITLE */}
           <label className="text-xs text-slate-300">
             Title
