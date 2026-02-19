@@ -5,7 +5,7 @@ interface InputType {
   type: 'password' | 'text' | 'email';
   placeholder: string;
   extraClass?: string;
-  setValue: Dispatch<SetStateAction<string>>; // 🔥 optional emas
+  setValue: Dispatch<SetStateAction<string>>;
   setLoading?: Dispatch<SetStateAction<boolean>>;
   value: string;
 }
@@ -20,9 +20,7 @@ const Input: FC<InputType> = ({
   value,
 }) => {
   function handleChange(evt: ChangeEvent<HTMLInputElement>) {
-    const val = evt.target.value;
-
-    setValue(val); // 🔥 toLowerCase majburiy emas
+    setValue(evt.target.value);
     if (setLoading) setLoading(true);
   }
 

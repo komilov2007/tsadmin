@@ -22,7 +22,7 @@ const Products = () => {
   // Filter
   const [searchValue, setSearchValue] = useState<string>('');
   const title = debounce(searchValue, 800);
-  const [categoryId, setCategoryId] = useState<number | string>('');
+  const [categoryId, setCategoryId] = useState<string>(''); // 🔹 faqat string
 
   useEffect(() => {
     instance.get('/categories').then((res) => setCategoryList(res.data));
@@ -40,6 +40,7 @@ const Products = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-7.5">
           <Input
+            value={searchValue}
             setLoading={setLoading}
             setValue={setSearchValue}
             extraClass="!bg-slate-200 !py-3.5 !text-black !w-[300px]"
@@ -49,6 +50,7 @@ const Products = () => {
           />
           <Select
             setLoading={setLoading}
+            value={searchValue}
             setValue={setCategoryId}
             list={categoryList}
             extraClass="!bg-slate-200 !text-black !w-[300px]"

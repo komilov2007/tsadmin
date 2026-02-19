@@ -64,7 +64,7 @@ const ProductCreate = () => {
           </h1>
 
           <Button
-            extraClass="w-25 flex items-center justify-center h-[44px]"
+            extraClass="!w-25 flex items-center justify-center h-[44px]"
             type="submit"
           >
             {loading ? (
