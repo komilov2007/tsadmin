@@ -36,7 +36,7 @@ const Products = () => {
     <div className="p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-7.5">
-          <Input
+          {/* <Input
             value={searchValue}
             setLoading={setLoading}
             setValue={setSearchValue}
@@ -44,8 +44,16 @@ const Products = () => {
             name="search"
             placeholder="Qidirish"
             type="text"
+          /> */}
+          <Input
+            setLoading={setLoading}
+            setValue={setSearchValue}
+            value={searchValue}
+            extraClass="..."
+            name="title"
+            placeholder="Title"
+            type="text"
           />
-
           <Select
             value={categoryId}
             setLoading={setLoading}
