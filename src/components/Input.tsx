@@ -5,7 +5,7 @@ interface InputType {
   type: 'password' | 'text' | 'email';
   placeholder: string;
   extraClass?: string;
-  setValue?: Dispatch<SetStateAction<string>>;
+  setValue: Dispatch<SetStateAction<string>>; // 🔥 optional emas
   setLoading?: Dispatch<SetStateAction<boolean>>;
   value: string;
 }
@@ -14,20 +14,22 @@ const Input: FC<InputType> = ({
   name,
   type,
   placeholder,
-  extraClass,
+  extraClass = '',
   setValue,
   setLoading,
   value,
 }) => {
-  function handleSearch(evt: ChangeEvent<HTMLInputElement>) {
-    if (setValue) setValue(evt.target.value.toLowerCase());
+  function handleChange(evt: ChangeEvent<HTMLInputElement>) {
+    const val = evt.target.value;
+
+    setValue(val); // 🔥 toLowerCase majburiy emas
     if (setLoading) setLoading(true);
   }
 
   return (
     <input
       value={value}
-      onChange={handleSearch}
+      onChange={handleChange}
       autoComplete="off"
       name={name}
       type={type}
