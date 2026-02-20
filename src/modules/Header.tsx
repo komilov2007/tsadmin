@@ -5,8 +5,15 @@ import { Context } from '../context/Context';
 import { LoadingWhite } from '../assets/images';
 import toast, { Toaster } from 'react-hot-toast';
 import { ThumbsUp } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import type { ProductsType } from '../@types';
 
 const Header = () => {
+  const likelist = useSelector(
+    (state: { likelist: ProductsType[] }) => state.likelist
+  );
+  console.log(likelist);
+
   const { setToken } = useContext(Context);
   const [loading, setLoading] = useState<boolean>(false);
   const location = useLocation();
@@ -59,7 +66,7 @@ const Header = () => {
           >
             <ThumbsUp size={25} />
             <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-500 text-white text-[12px] flex items-center justify-center">
-              1
+              {likelist.length}
             </span>
           </Button>
           <Button

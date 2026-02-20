@@ -1,6 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import { PATH } from '../components';
-import { Category, Home, ProductCrud, ProductMore, Products } from '../pages';
+import {
+  Category,
+  Home,
+  LikeProducts,
+  ProductCrud,
+  ProductMore,
+  Products,
+} from '../pages';
 import NotFound from '../pages/NotFound';
 import SiteBar from '../modules/SiteBar';
 import Header from '../modules/Header';
@@ -14,6 +21,7 @@ const DashboardRoute = () => {
     { id: 5, path: PATH.productsCreate, element: <ProductCrud /> },
     { id: 6, path: PATH.productsMore, element: <ProductMore /> },
     { id: 7, path: PATH.productsUpdate, element: <ProductCrud /> },
+    { id: 8, path: PATH.likelist, element: <LikeProducts /> },
   ];
   return (
     <div className="flex">

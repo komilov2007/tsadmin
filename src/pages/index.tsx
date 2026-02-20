@@ -6,6 +6,7 @@ import Category from './Dashboard/Category';
 import NotFound from './NotFound';
 import ProductCrud from './Dashboard/Products/ProductCrud';
 import ProductMore from './Dashboard/Products/ProductMore';
+import LikeProducts from './Dashboard/LikeProduxcts';
 export {
   Login,
   Register,
@@ -15,4 +16,5 @@ export {
   NotFound,
   ProductCrud,
   ProductMore,
+  LikeProducts,
 };

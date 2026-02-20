@@ -2,15 +2,18 @@ import type { FC } from 'react';
 import type { ProductsType } from '../@types';
 import { EllipsisVertical, ThumbsUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { collectLikeProduct } from '../store/LikeSlice';
 
 const ProductCard: FC<{ item: ProductsType }> = ({ item }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   console.log(item.id);
 
   const erroImg =
     'https://cdni.iconscout.com/illustration/premium/thumb/sorry-item-not-found-illustration-svg-download-png-2809510.png';
   return (
-    <div className="w-70 rounded-2xl overflow-hidden bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
+    <div className="w-68 rounded-2xl overflow-hidden bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
       <div className="h-50 relative overflow-hidden">
         <img
           onError={(evt) => ((evt.target as HTMLImageElement).src = erroImg)}
@@ -28,7 +31,10 @@ const ProductCard: FC<{ item: ProductsType }> = ({ item }) => {
         >
           <EllipsisVertical size={15} />
         </span>
-        <span className="absolute top-10 right-3 text-xs p-1 rounded-full bg-indigo-500/30 text-indigo-300 border border-indigo-400/20">
+        <span
+          onClick={() => dispatch(collectLikeProduct(item))}
+          className="absolute top-10 right-3 text-xs p-1 rounded-full bg-indigo-500/30 text-indigo-300 border border-indigo-400/20"
+        >
           <ThumbsUp size={15} />
         </span>
       </div>
